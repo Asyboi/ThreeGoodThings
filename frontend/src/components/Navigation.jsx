@@ -28,12 +28,12 @@ const Navigation = () => {
         <li>
           <Link to="/about">About</Link>
         </li>
-        <li>
-          <Link to="/create">Create Account</Link>
-        </li>
         <div className="relative inline-block ml-auto" ref={dropdownRef}>
-          <button onClick={toggleDropdown} className="p-2 hover:bg-gray-100 rounded-full">
-            <AiFillSetting className="text-4xl"/>
+          <button
+            onClick={toggleDropdown}
+            className="p-2 hover:bg-gray-100 rounded-full"
+          >
+            <AiFillSetting className="text-4xl" />
           </button>
           {open && (
             <div className="absolute right-0 mt-2 w-40 bg-white border border-gray-300 rounded shadow-lg z-10">

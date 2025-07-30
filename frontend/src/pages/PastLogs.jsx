@@ -1,17 +1,13 @@
-import React from "react";
 import { useState } from "react";
-
 
 import { getLog } from "../services/requests";
 
-
-const LogFind = ({ ...props }) => {
+const LogFind = () => {
   const [month, setMonth] = useState("");
   const [day, setDay] = useState("");
   const [year, setYear] = useState("");
   const [targetDate, setTargetDate] = useState("");
   const [pastLog, setPastLog] = useState(null);
-
 
   const handleFind = async () => {
     setPastLog(null);
@@ -24,7 +20,6 @@ const LogFind = ({ ...props }) => {
       setPastLog(result.log.body);
     }
   };
-
 
   return (
     <div className="flex flex-col h-full justify-start items-center p-5">
@@ -50,11 +45,9 @@ const LogFind = ({ ...props }) => {
         />
       </div>
 
-
       <button className="mt-10" onClick={handleFind}>
         Find
       </button>
-
 
       {pastLog && (
         <div className="mt-10">
@@ -69,6 +62,5 @@ const LogFind = ({ ...props }) => {
     </div>
   );
 };
-
 
 export default LogFind;

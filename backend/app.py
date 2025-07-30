@@ -23,6 +23,8 @@ def create_user():
     email = data.get("email")
     password = data.get("password")
 
+    # --------ERROR HANDLING--------
+
     # If username, email, or password are empty, 
     if not username or not email or not password:
         return jsonify({"error": "Username, email, and password are all required"}), 400
@@ -33,6 +35,8 @@ def create_user():
     if existing_users:
         # If a user is found, return an error message that a user with that email already exists
         return jsonify({"error": "A user with this email already exists"}), 400
+
+    # -----------------------------
 
     # Create new user object
     new_user = {
