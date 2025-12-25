@@ -1,11 +1,13 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import requests
-
+import os
 import firebase_admin
 from firebase_admin import credentials, firestore
 
-cred = credentials.Certificate("/app/backend/key.json")
+# relative path (private key within backend)
+cred_path = os.path.join(os.path.dirname(__file__), "key.json")
+cred = credentials.Certificate(cred_path)
 firebase_admin.initialize_app(cred)
 
 db = firestore.client()
@@ -194,4 +196,4 @@ def hello_world():
 # Run the app
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=5001)
