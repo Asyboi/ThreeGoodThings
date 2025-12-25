@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { createLog } from "../services/requests";
 
+// handles log entries
 const LogEntry = () => {
   const [logEntry1, setLogEntry1] = useState("");
   const [logEntry2, setLogEntry2] = useState("");
   const [logEntry3, setLogEntry3] = useState("");
 
+  // handles entry saves
   const handleSave = async () => {
     const logs = [logEntry1, logEntry2, logEntry3];
     const result = await createLog(logs);

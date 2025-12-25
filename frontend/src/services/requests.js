@@ -1,7 +1,7 @@
 // Index for all api calls
 const API_BASE = "http://127.0.0.1:5000"; // Update if deployed
 
-// Create a new user account
+// Create a new user account (POST method)
 export async function createUser(username, email, password) {
   const response = await fetch(`${API_BASE}/api/users/create`, {
     method: "POST",
@@ -19,7 +19,7 @@ export async function createUser(username, email, password) {
   return responseData;
 }
 
-// Login a user
+// Login a user (GET method)
 export async function loginUser(username, password) {
   try {
     const response = await fetch(
@@ -48,7 +48,7 @@ export function logoutUser() {
   localStorage.removeItem("userId");
 }
 
-// Create a log
+// Create a log (method POST)
 export async function createLog(things) {
   // Add userId as stored from during either login or creation
   const userId = localStorage.getItem("userId");
@@ -63,7 +63,7 @@ export async function createLog(things) {
   return await response.json();
 }
 
-// Fetch a past log for a given date
+// Fetch a past log for a given date (method GET)
 export async function getLog(targetDate) {
   // Add userId as stored from during either login or creation
   const userId = localStorage.getItem("userId");
