@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import './styles/Home.css'; // import the CSS file
+import {logoutUser} from '../services/requests';
+import './styles/Home.css'; 
 
 const Home = () => {
   const navigate = useNavigate();
@@ -11,6 +12,11 @@ const Home = () => {
   const handlePastEntries = () => {
     navigate("/pastentries");
   };
+
+  const handleLogOut = () => {
+    logoutUser();
+    navigate("/login");
+  }
 
   return (
     <div className="home-container">
@@ -28,6 +34,10 @@ const Home = () => {
 
         <button className="home-button" onClick={handlePastEntries}>
           Look at Past Entries
+        </button>
+
+        <button onClick={handleLogOut} /* TODO: style log out button */>
+          Log Out
         </button>
       </div>
     </div>

@@ -6,8 +6,7 @@ import firebase_admin
 from firebase_admin import credentials, firestore
 
 # relative path (private key within backend)
-cred_path = os.path.join(os.path.dirname(__file__), "key.json")
-cred = credentials.Certificate(cred_path)
+cred = credentials.Certificate("key.json")
 firebase_admin.initialize_app(cred)
 
 db = firestore.client()
@@ -15,7 +14,7 @@ import datetime
 import zoneinfo
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, origins=["http://localhost:5174"], supports_credentials=True)
 
 # User create
 @app.route('/api/users/create', methods=['POST'])
@@ -196,4 +195,4 @@ def hello_world():
 # Run the app
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5001)
+    app.run(debug=True, port=5001, host="0.0.0.0")
