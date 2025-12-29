@@ -1,0 +1,18 @@
+/* Container fills the screen and centers content */
+.notfound-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 2rem;
+  box-sizing: border-box;
+  background-color: #242424;
+  text-align: center;
+}
+
+/* Message text */
+.notfound-text {
+  color: white;
+  font-size: clamp(1.25rem, 4vw, 1.75rem);
+  line-height: 1.5;
+}

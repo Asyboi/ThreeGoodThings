@@ -1,0 +1,98 @@
+/* Navigation container */
+.nav-container {
+  width: 100%;
+  padding: 1rem;
+  box-sizing: border-box;
+  background-color: #242424;
+}
+
+/* Nav list */
+.nav-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Nav links */
+.nav-link {
+  color: rgba(255, 255, 255, 0.87);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.nav-link:hover {
+  color: #646cff;
+}
+
+/* Settings button */
+.settings-wrapper {
+  margin-left: auto;
+  position: relative;
+}
+
+.settings-button {
+  padding: 0.5rem;
+  border-radius: 50%;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.settings-button:hover {
+  background-color: #333;
+}
+
+/* Icon */
+.settings-icon {
+  font-size: 2rem;
+  color: rgba(255, 255, 255, 0.87);
+}
+
+/* Dropdown menu */
+.dropdown-menu {
+  position: absolute;
+  right: 0;
+  margin-top: 0.5rem;
+  background-color: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+  z-index: 10;
+  min-width: 150px;
+}
+
+/* Dropdown list */
+.dropdown-list {
+  list-style: none;
+  padding: 0.5rem 0;
+  margin: 0;
+}
+
+/* Dropdown items */
+.dropdown-item {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.87);
+  transition: background-color 0.3s;
+}
+
+.dropdown-item:hover {
+  background-color: #333;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .nav-list {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .settings-wrapper {
+    margin-left: 0;
+  }
+}

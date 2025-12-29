@@ -1,0 +1,27 @@
+/* About Page Global Styles */
+.about-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* vertical alignment */
+  align-items: center;     /* horizontal alignment */
+  min-height: 100vh;       /* full screen height */
+  padding: 2rem;           /* spacing around content */
+  box-sizing: border-box;
+  color: white;
+  gap: 1.5rem;             /* spacing between elements */
+}
+
+.about-title {
+  font-size: clamp(2rem, 5vw, 3rem); /* responsive heading */
+  font-weight: bold;
+  text-align: center;
+  margin: 0;
+}
+
+.about-text {
+  font-size: clamp(1rem, 3vw, 1.25rem); /* responsive paragraph */
+  text-align: center;
+  max-width: 700px;    /* restrict line length for readability */
+  line-height: 1.6;
+  margin: 0;
+}

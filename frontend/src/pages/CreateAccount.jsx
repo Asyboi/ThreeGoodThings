@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { createUser } from "../services/requests";
 import { useNavigate } from "react-router-dom";
+import './CreateAccount.css'; // import CSS
 
 const CreateAccount = () => {
   const [username, setUsername] = useState("");
@@ -9,64 +10,54 @@ const CreateAccount = () => {
   const navigate = useNavigate();
 
   const handleCreateSubmit = async () => {
-    const res = await createUser(username, email, password); //res = response
+    const res = await createUser(username, email, password);
     console.log("res", res);
     if (res.error) {
-      alert(
-        `Ran into the following problem when creating account: ${res.error}`
-      );
-    } else if (res && res.message == "Account created") {
+      alert(`Ran into the following problem when creating account: ${res.error}`);
+    } else if (res && res.message === "Account created") {
       navigate("/");
     }
   };
 
-  const handleLoginSubmit = async () => {
+  const handleLoginSubmit = () => {
     navigate("/Login");
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="bg-white shadow-xl rounded-2xl p-8 w-full max-w-md">
-        <h1 className="text-2xl font-bold text-center text-gray-800 mb-6">
-          Three Good Things
-        </h1>
+    <div className="account-page">
+      <div className="account-card">
+        <h1 className="account-title">Three Good Things</h1>
 
-        <div className="space-y-4">
+        <div className="account-form">
           <input
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            placeholder="Username: "
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 placeholder-gray-500 text-gray-800"
+            placeholder="Username"
+            className="account-input"
           />
 
           <input
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="Email: "
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 placeholder-gray-500 text-gray-800"
+            placeholder="Email"
+            className="account-input"
           />
 
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="Password: "
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 placeholder-gray-500 text-gray-800"
+            placeholder="Password"
+            className="account-input"
           />
 
-          <button
-            className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg transition duration-200"
-            onClick={handleCreateSubmit}
-          >
+          <button className="account-button" onClick={handleCreateSubmit}>
             Create Account
           </button>
 
-          <button
-            className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg transition duration-200"
-            onClick={handleLoginSubmit}
-          >
+          <button className="account-button" onClick={handleLoginSubmit}>
             Login
           </button>
         </div>

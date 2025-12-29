@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { loginUser } from "../services/requests";
 import { useNavigate, Link } from "react-router-dom";
+import './Login.css'; // import the CSS file
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -15,46 +16,39 @@ const Login = () => {
     setPassword("");
     if (result.error) {
       alert(`${result.error}`);
-    } else if (result && result.message == "Login successful") {
+    } else if (result && result.message === "Login successful") {
       navigate("/");
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="bg-white shadow-xl rounded-2xl p-8 w-full max-w-md">
-        <h1 className="text-2xl font-bold text-center text-gray-800 mb-6">
-          Three Good Things
-        </h1>
+    <div className="login-page">
+      <div className="login-card">
+        <h1 className="login-title">Three Good Things</h1>
 
-        <div className="space-y-4">
+        <div className="login-form">
           <input
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            placeholder="Username: "
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 placeholder-gray-500 text-gray-800"
+            placeholder="Username"
+            className="login-input"
           />
 
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="Password: "
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 placeholder-gray-500 text-gray-800"
+            placeholder="Password"
+            className="login-input"
           />
 
-          <button
-            className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg transition duration-200"
-            onClick={handleSubmit}
-          >
+          <button className="login-button" onClick={handleSubmit}>
             Login
           </button>
 
-          <p className="w-full text-black py-2 px-4">
-            {" "}
-            Don&apos;t have an account?{" "}
-            <Link to="/create"> Create account </Link>{" "}
+          <p className="login-text">
+            Don&apos;t have an account? <Link to="/create">Create account</Link>
           </p>
         </div>
       </div>

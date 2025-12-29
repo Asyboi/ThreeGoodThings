@@ -3,7 +3,7 @@ import Navigation from "./components/Navigation";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import NotFound from "./pages/NotFound";
-import "./App.css";
+import "./styles/App.css";
 import Login from "./pages/Login";
 import CreateAccount from "./pages/CreateAccount";
 import LogEntry from "./pages/LogEntry";
