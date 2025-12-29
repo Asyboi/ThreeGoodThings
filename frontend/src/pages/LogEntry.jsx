@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { createLog } from "../services/requests";
-import './LogEntry.css'; // import the CSS file
+import './styles/LogEntry.css'; // import the CSS file
 
 const LogEntry = () => {
   const [logEntry1, setLogEntry1] = useState("");

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { getLog } from "../services/requests";
-import './PastLogs.css'; // import CSS
+import './styles/PastLogs.css'; // import CSS
 
 const LogFind = () => {
   const [month, setMonth] = useState("");

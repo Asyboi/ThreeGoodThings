@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { createUser } from "../services/requests";
 import { useNavigate } from "react-router-dom";
-import './CreateAccount.css'; // import CSS
+import './styles/CreateAccount.css'; // import CSS
 
 const CreateAccount = () => {
   const [username, setUsername] = useState("");

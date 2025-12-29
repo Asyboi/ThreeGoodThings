@@ -1,4 +1,4 @@
-import './About.css'; // import your CSS file
+import './styles/About.css'; // import your CSS file
 
 const About = () => {
   return (
