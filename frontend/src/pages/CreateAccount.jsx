@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { createUser } from "../services/requests";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import './styles/CreateAccount.css'; // import CSS
 
 const CreateAccount = () => {
@@ -17,10 +17,6 @@ const CreateAccount = () => {
     } else if (res && res.message === "Account created") {
       navigate("/");
     }
-  };
-
-  const handleLoginSubmit = () => {
-    navigate("/Login");
   };
 
   return (
@@ -57,9 +53,9 @@ const CreateAccount = () => {
             Create Account
           </button>
 
-          <button className="account-button" onClick={handleLoginSubmit}>
-            Login
-          </button>
+          <p className="login-text">
+            Already have an account? <Link to="/Login">Login</Link>
+          </p>
         </div>
       </div>
     </div>
