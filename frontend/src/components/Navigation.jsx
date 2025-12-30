@@ -7,6 +7,12 @@ const Navigation = () => {
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef(null);
 
+  // auth state check function
+  function isLoggedIn() {
+      const userId = localStorage.getItem("userId");
+      return Boolean(userId);
+  }
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -24,10 +30,11 @@ const Navigation = () => {
     <nav className="nav-container">
       <ul className="nav-list">
         <li>
-          <Link to="/" className="nav-link">Home</Link>
+          {/* The "Home" and "About" links only show when you're logged in */}
+          {isLoggedIn() && <Link to="/" className="nav-link">Home</Link>}
         </li>
         <li>
-          <Link to="/about" className="nav-link">About</Link>
+          {isLoggedIn() && <Link to="/about" className="nav-link">About</Link>}
         </li>
         <li className="settings-wrapper" ref={dropdownRef}>
           <button onClick={toggleDropdown} className="settings-button">
