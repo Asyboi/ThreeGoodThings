@@ -35,11 +35,10 @@ const Home = () => {
         <button className="home-button" onClick={handlePastEntries}>
           Look at Past Entries
         </button>
-
-        <button onClick={handleLogOut} /* TODO: style log out button */>
-          Log Out
-        </button>
       </div>
+      <button className="logout-button" onClick={handleLogOut}>
+          Log Out
+      </button>
     </div>
   );
 };

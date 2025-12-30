@@ -53,6 +53,18 @@
   background-color: #3b4cc0;
 }
 
+.logout-button {
+  background-color: #4f63f7; 
+  margin-top: 1rem;
+  width: auto;
+  padding: 0.5rem 1.5rem; /* adjust padding for horizontal shape */
+}
+
+.logout-button:hover {
+  background-color: #d32f2f;
+}
+
+
 /* Responsive adjustments */
 @media (min-width: 600px) {
   .home-buttons {
