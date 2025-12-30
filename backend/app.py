@@ -1,7 +1,5 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-import requests
-import os
 import firebase_admin
 from firebase_admin import credentials, firestore
 
@@ -14,7 +12,7 @@ import datetime
 import zoneinfo
 
 app = Flask(__name__)
-CORS(app, origins=["http://localhost:5174"], supports_credentials=True)
+CORS(app)
 
 # User create
 @app.route('/api/users/create', methods=['POST'])
@@ -120,6 +118,7 @@ def create_log():
     return jsonify({"message": "Log creation successful"}), 201
 
 # Log Get
+# TODO: adapt function to handle users timezone
 @app.route('/api/logs/get', methods=['GET'])
 def get_log():
     user_id = request.args.get("userId")
@@ -137,9 +136,6 @@ def get_log():
         return jsonify({"error": "Log not found for this date", "target_query": len(target_query)}), 404
     
     return jsonify({"message": "Log found successfully", "log": target_query[0].to_dict()}), 200
-    
-
-
 
 # Database interaction examples:
 
