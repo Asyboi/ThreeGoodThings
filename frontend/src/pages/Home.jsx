@@ -1,8 +1,15 @@
+import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import {logoutUser} from '../services/requests';
 import './styles/Home.css'; 
 
-const Home = () => {
+const Home = ({ setIsLoggedIn }) => {
+  // sets prop types for isLoggedIn and setIsLoggedIn (for type safety)
+  Home.propTypes = {
+    isLoggedIn: PropTypes.bool.isRequired,
+    setIsLoggedIn: PropTypes.func.isRequired,
+  };
+
   const navigate = useNavigate();
 
   const handleLogClick = () => {
@@ -15,8 +22,9 @@ const Home = () => {
 
   const handleLogOut = () => {
     logoutUser();
+    setIsLoggedIn(false);
     navigate("/login");
-  }
+  };
 
   return (
     <div className="home-container">
@@ -36,9 +44,9 @@ const Home = () => {
           Look at Past Entries
         </button>
       </div>
-      <button className="logout-button" onClick={handleLogOut}>
+        <button className="logout-button" onClick={handleLogOut}>
           Log Out
-      </button>
+        </button>
     </div>
   );
 };

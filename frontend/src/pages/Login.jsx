@@ -1,9 +1,15 @@
+import PropTypes from "prop-types";
 import { useState } from "react";
 import { loginUser } from "../services/requests";
 import { useNavigate, Link } from "react-router-dom";
 import './styles/Login.css'; 
 
-const Login = () => {
+const Login = ({ setIsLoggedIn }) => {
+  // prop type validation
+  Login.propTypes = {
+    setIsLoggedIn: PropTypes.func.isRequired,
+  };
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -17,6 +23,8 @@ const Login = () => {
     if (result.error) {
       alert(`${result.error}`);
     } else if (result && result.message === "Login successful") {
+      // sets user auth value to true
+      setIsLoggedIn(true);
       navigate("/");
     }
   };

@@ -1,9 +1,15 @@
+import PropTypes from "prop-types";
 import { useState } from "react";
 import { createUser } from "../services/requests";
 import { useNavigate, Link } from "react-router-dom";
 import './styles/CreateAccount.css'; // import CSS
 
-const CreateAccount = () => {
+const CreateAccount = ({ setIsLoggedIn }) => {
+  // prop type validation
+  CreateAccount.propTypes = {
+    setIsLoggedIn: PropTypes.func.isRequired,
+  };
+
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -15,6 +21,8 @@ const CreateAccount = () => {
     if (res.error) {
       alert(`Ran into the following problem when creating account: ${res.error}`);
     } else if (res && res.message === "Account created") {
+      // sets user auth value to true
+      setIsLoggedIn(true);
       navigate("/");
     }
   };
