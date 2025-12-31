@@ -35,7 +35,13 @@ function App() {
           } 
         />
           
-        <Route path="*" element={<NotFound />} />
+        <Route path="*" element={
+            <ProtectedRoute isLoggedIn={isLoggedIn}>
+              <NotFound />
+            </ProtectedRoute>
+          } 
+        />
+        
         <Route path="/create" element={<CreateAccount setIsLoggedIn={setIsLoggedIn} />} />
         <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
         <Route path="/log" element={
