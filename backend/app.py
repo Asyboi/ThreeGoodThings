@@ -245,4 +245,6 @@ def hello_world():
 # Run the app
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5001, host="0.0.0.0")
+    # Use PORT env var if available, otherwise default to 5001 for local testing (5000 is used by something else)
+    port = int(os.environ.get("PORT", 5001))
+    app.run(debug=True, port=port, host="0.0.0.0")
