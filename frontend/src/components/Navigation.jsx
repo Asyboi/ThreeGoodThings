@@ -43,8 +43,8 @@ const Navigation = () => {
           {open && (
             <div className="dropdown-menu">
               <ul className="dropdown-list">
-                <li className="dropdown-item">Light Mode</li>
-                <li className="dropdown-item">Help</li>
+                <li className="dropdown-item">Light Mode (WIP) </li>
+                <li className="dropdown-item">Help (WIP) </li>
               </ul>
             </div>
           )}
