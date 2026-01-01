@@ -26,15 +26,16 @@ RUN npm install
 # Copy frontend files
 COPY frontend/ ./
 
-# Build React frontend if needed
-# RUN npm run build
+# Build React frontend
+RUN npm run build
 
 # Copy backend code
 WORKDIR /app
 COPY backend/ ./backend/
 
-# Expose ports
-EXPOSE 5000 5173
+# Expose port (Render provides $PORT at runtime)
+EXPOSE 5000
 
-# Run Flask backend with Gunicorn, using PORT env variable
-CMD ["sh", "-c", "gunicorn -w 4 -b 0.0.0.0:${PORT:-5000} backend.app:app"]
+# Start the Flask app using Gunicorn
+# --bind 0.0.0.0:$PORT ensures it uses the environment variable from Render
+CMD ["gunicorn", "--bind", "0.0.0.0:$PORT", "backend.app:app", "--workers", "4"]

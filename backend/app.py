@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import os
 import json
@@ -238,9 +238,13 @@ def get_all_users():
 
     return jsonify(users)
 
-@app.route("/")
-def hello_world():
-    return "<p>The backend is working</p>"
+@app.route("/", defaults={"path": ""})
+@app.route("/<path:path>")
+def serve_frontend(path):
+    build_dir = os.path.join(os.path.dirname(__file__), "../frontend/build")
+    if path != "" and os.path.exists(os.path.join(build_dir, path)):
+        return send_from_directory(build_dir, path)
+    return send_from_directory(build_dir, "index.html")
 
 # Run the app
 
