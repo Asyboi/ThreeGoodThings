@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import os
 import json
+import base64
 import firebase_admin
 from firebase_admin import credentials, firestore
 from datetime import datetime, timezone
@@ -11,7 +12,11 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 # initialize Firebase from env vars and local dev
 if os.environ.get("FIREBASE_SERVICE_ACCOUNT"):
-    firebase_cred = json.loads(os.environ.get("FIREBASE_SERVICE_ACCOUNT").replace("\\\\n","\n"))
+    decoded = base64.b64decode(
+        os.environ["FIREBASE_SERVICE_ACCOUNT"]
+    ).decode("utf-8")
+
+    firebase_cred = json.loads(decoded)
 else:
     with open("key.json") as f:
         firebase_cred = json.load(f)
