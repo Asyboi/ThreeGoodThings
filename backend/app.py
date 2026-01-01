@@ -18,15 +18,15 @@ if os.environ.get("FIREBASE_SERVICE_ACCOUNT_BASE64"):
 
     firebase_cred = json.loads(decoded)
 else:
-    with open("key.json") as f:
+    with open("backend/key.json") as f:
         firebase_cred = json.load(f)
 
 cred = credentials.Certificate(firebase_cred)
 firebase_admin.initialize_app(cred)
 
 db = firestore.client()
-# Serve the React frontend directly from /app/frontend/build
-build_dir = os.path.join(os.path.dirname(__file__), "../frontend/build")
+# Serve the React frontend directly from /app/frontend/dist
+build_dir = os.path.join(os.path.dirname(__file__), "../frontend/dist")
 app = Flask(__name__, static_folder=os.path.join(build_dir, "static"), template_folder=build_dir)
 CORS(app)
 
