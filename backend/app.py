@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import os
+import json
 import firebase_admin
 from firebase_admin import credentials, firestore
 from datetime import datetime, timezone
@@ -9,7 +10,7 @@ from typing import Optional
 from werkzeug.security import generate_password_hash, check_password_hash
 
 # initialize Firebase from env vars and local dev
-if os.environ.get("FLASK_ENV") == "production":
+if os.environ.get("FIREBASE_PRIVATE_KEY"):
     firebase_cred = {
         "type": "service_account",
         "project_id": os.environ.get("FIREBASE_PROJECT_ID"),
@@ -17,8 +18,8 @@ if os.environ.get("FLASK_ENV") == "production":
         "client_email": os.environ.get("FIREBASE_CLIENT_EMAIL"),
     }
 else:
-    import json
-    with open("key.json") as f:
+    key_path = os.path.join(os.path.dirname(__file__), "key.json")
+    with open(key_path) as f:
         firebase_cred = json.load(f)
 
 cred = credentials.Certificate(firebase_cred)
