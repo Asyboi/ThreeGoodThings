@@ -6,6 +6,7 @@ from firebase_admin import credentials, firestore
 from datetime import datetime, timezone
 from zoneinfo import ZoneInfo
 from typing import Optional
+from werkzeug.security import generate_password_hash, check_password_hash
 
 # initialize Firebase from env vars and local dev
 if os.environ.get("FLASK_ENV") == "production":
@@ -62,13 +63,14 @@ def create_user():
         # If a user is found, return an error message that a user with that email already exists
         return jsonify({"error": "A user with this email already exists"}), 400
 
-    # -----------------------------
+    # --------HASH PASSWORD--------
+    hashed_password = generate_password_hash(password)
 
     # Create new user object
     new_user = {
         "username": username,
         "email": email,
-        "password": password  # NOTE: In production, hash the password!
+        "password": hashed_password  # password hashed for security
     }
 
     # TODO create new user in the database, let Firestore auto-generate the document ID
@@ -92,7 +94,7 @@ def get_user():
         return jsonify({"error": "Username and password are required"}), 400
 
     users_ref = db.collection("users")
-    matching_users = users_ref.where("username", "==", username).where("password", "==", password).get()
+    matching_users = users_ref.where("username", "==", username).get()
 
     if not matching_users:
         # Else, return an error message
@@ -100,6 +102,12 @@ def get_user():
 
     # If it does, return a success message and their id
     user_doc = matching_users[0]
+    user_data = user_doc.to_dict()
+
+    # Check hashed password
+    if not check_password_hash(user_data["password"], password):
+        return jsonify({"error": "Invalid password"}), 401
+    
     user_id = user_doc.id
 
     return jsonify({"message": "Login successful", "user_id": user_id}), 200
