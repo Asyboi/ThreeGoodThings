@@ -35,4 +35,4 @@ COPY backend/ ./backend/
 EXPOSE 5000
 
 # Start Flask via Gunicorn
-CMD ["gunicorn", "--bind", "0.0.0.0:$PORT", "backend.app:app", "--workers", "4"]
+CMD sh -c "gunicorn --bind 0.0.0.0:$PORT backend.app:app --workers 4"
