@@ -32,9 +32,6 @@ RUN npm run build
 WORKDIR /app
 COPY backend/ ./backend/
 
-# Move frontend build into backend so Flask can serve it safely
-RUN rm -rf /app/backend/build && mv /app/frontend/build /app/backend/build
-
 EXPOSE 5000
 
 # Start Flask via Gunicorn
