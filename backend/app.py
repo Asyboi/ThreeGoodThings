@@ -26,7 +26,7 @@ firebase_admin.initialize_app(cred)
 
 db = firestore.client()
 # Serve the React frontend directly from /app/frontend/build
-build_dir = os.path.join(os.path.dirname(__file__), "build")
+build_dir = os.path.join(os.path.dirname(__file__), "frontend/build")
 app = Flask(__name__, static_folder=os.path.join(build_dir, "static"), template_folder=build_dir)
 CORS(app)
 
