@@ -38,4 +38,4 @@ EXPOSE 5000
 
 # Start the Flask app using Gunicorn
 # --bind 0.0.0.0:$PORT ensures it uses the environment variable from Render
-CMD ["gunicorn", "--bind", "0.0.0.0:$PORT", "backend.app:app", "--workers", "4"]
+CMD ["sh", "-c", "gunicorn --bind 0.0.0.0:$PORT backend.app:app --workers 4"]
