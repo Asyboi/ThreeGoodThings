@@ -2,17 +2,31 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import firebase_admin
 from firebase_admin import credentials, firestore
+from datetime import datetime, timezone
+from zoneinfo import ZoneInfo
+from typing import Optional
 
 # relative path (private key within backend)
 cred = credentials.Certificate("key.json")
 firebase_admin.initialize_app(cred)
 
 db = firestore.client()
-import datetime
-import zoneinfo
-
 app = Flask(__name__)
 CORS(app)
+
+# App single global timezone for simplicity (TODO: change to per-user timezone in the future)
+APP_TZ = ZoneInfo("America/Chicago")
+
+# date converter helper
+def app_day_utc(dt: Optional[datetime] = None) -> datetime:
+    if dt is None:
+        dt = datetime.now(APP_TZ)
+
+    local_midnight = dt.replace(
+        hour=0, minute=0, second=0, microsecond=0
+    )
+
+    return local_midnight.astimezone(timezone.utc)
 
 # User create
 @app.route('/api/users/create', methods=['POST'])
@@ -87,6 +101,9 @@ def create_log():
 
     user = db.collection("users").document(user_id).get()
 
+    # normalized day field
+    today_utc = app_day_utc()
+
     if not user.exists:
         return jsonify({"error": "User not found"}), 404
 
@@ -94,10 +111,16 @@ def create_log():
         return jsonify({"error": "Exactly 3 good things are required."}), 400
     
     logs_ref = db.collection("logs")
-    today = datetime.datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
-    today_query = logs_ref.where('date', '>=', today).where('date', '<', today + datetime.timedelta(days=1)).where("user_id", '==', user_id).get()
 
-    if today_query:
+    # today_query = logs_ref.where('date', '>=', today).where('date', '<', today + datetime.timedelta(days=1)).where("user_id", '==', user_id).get()
+    existing_log = (
+        logs_ref
+        .where("user_id", "==", user_id)
+        .where("day", "==", today_utc)
+        .get()
+    )
+
+    if existing_log:
         return jsonify({"error": "You already submitted a log today."}), 409
 
     body = {
@@ -110,7 +133,9 @@ def create_log():
     new_log = {
         "user_id": user_id,
         "date": firestore.SERVER_TIMESTAMP,
-        "body":  body
+        "day": today_utc,
+        "body": body
+
     }
 
     new_log_ref = db.collection("logs").document()
@@ -122,18 +147,28 @@ def create_log():
 @app.route('/api/logs/get', methods=['GET'])
 def get_log():
     user_id = request.args.get("userId")
-    date = request.args.get("date")
+    date = request.args.get("date") # in the format of MM-DD-YYYY
 
     if not user_id or not date:
-        return jsonify({"error": "user_id and date query parameters required"}), 400
+        return jsonify({"error": "user_id and date query parameters required"}), 400 # 400 = bad request
 
     logs_ref = db.collection("logs")
-    target_date = datetime.datetime.strptime(date, "%m-%d-%Y").astimezone(zoneinfo.ZoneInfo('America/Chicago'))
+    # target_date = datetime.datetime.strptime(date, "%m-%d-%Y").astimezone(zoneinfo.ZoneInfo('America/Chicago'))
+    # TODO: problem didn't fix
+    target_date = datetime.strptime(date, "%m-%d-%Y")
+    target_date = target_date.replace(tzinfo=APP_TZ)
 
-    target_query = logs_ref.where('date', '>=', target_date).where('date', '<', target_date + datetime.timedelta(days=1)).where("user_id", '==', user_id).get()
+    target_date_utc = app_day_utc(target_date)
+
+    target_query = (
+        logs_ref
+        .where("user_id", "==", user_id)
+        .where("day", "==", target_date_utc)
+        .get()
+    )
 
     if not target_query:
-        return jsonify({"error": "Log not found for this date", "target_query": len(target_query)}), 404
+        return jsonify({"error": "Log not found for this date", "target_query": len(target_query)}), 404 # 404 = not found
     
     return jsonify({"message": "Log found successfully", "log": target_query[0].to_dict()}), 200
 
