@@ -1,63 +1,41 @@
-# -----------------------------
-# Base image
-# -----------------------------
+# Use an official Python runtime as the base image
 FROM python:3.11-slim
 
-# -----------------------------
-# Set working directory
-# -----------------------------
 WORKDIR /app
 
-# -----------------------------
-# Install system dependencies
-# -----------------------------
+# Install system dependencies including Node.js and npm
 RUN apt-get update && apt-get install -y \
+    nodejs \
+    npm \
     curl \
-    gnupg \
-    ca-certificates \
-    lsb-release \
-    build-essential \
-    && curl -fsSL https://deb.nodesource.com/setup_16.x | bash - \
+    && curl -sL https://deb.nodesource.com/setup_16.x | bash - \
     && apt-get install -y nodejs \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# -----------------------------
-# Copy backend requirements and install Python dependencies
-# -----------------------------
-COPY backend/requirements.txt ./
+# Backend requirements
+COPY backend/requirements.txt ./ 
 RUN pip install --no-cache-dir -r requirements.txt
 
-# -----------------------------
-# Copy frontend and install Node dependencies
-# -----------------------------
+# Frontend dependencies
 COPY frontend/package*.json ./frontend/
 WORKDIR /app/frontend
 RUN npm install
 
-# -----------------------------
-# Copy frontend source code and build
-# -----------------------------
+# Copy frontend files
 COPY frontend/ ./
+
+# Build React
 RUN npm run build
 
-# -----------------------------
-# Move the frontend build into backend folder
-# -----------------------------
+# Move frontend build into backend so Flask can serve it
 RUN mv /app/frontend/build /app/backend/build
 
-# -----------------------------
-# Copy backend code
-# -----------------------------
+# Backend code
 WORKDIR /app
 COPY backend/ ./backend/
 
-# -----------------------------
-# Expose the port (Render uses $PORT)
-# -----------------------------
 EXPOSE 5000
 
-# -----------------------------
-# Start Flask app using Gunicorn
-# -----------------------------
-CMD ["sh", "-c", "gunicorn --bind 0.0.0.0:$PORT backend.app:app --workers 4"]
+# Start Flask via Gunicorn
+CMD ["gunicorn", "--bind", "0.0.0.0:$PORT", "backend.app:app", "--workers", "4"]
