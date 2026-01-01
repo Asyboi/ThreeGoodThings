@@ -10,16 +10,10 @@ from typing import Optional
 from werkzeug.security import generate_password_hash, check_password_hash
 
 # initialize Firebase from env vars and local dev
-if os.environ.get("FIREBASE_PRIVATE_KEY"):
-    firebase_cred = {
-        "type": "service_account",
-        "project_id": os.environ.get("FIREBASE_PROJECT_ID"),
-        "private_key": os.environ.get("FIREBASE_PRIVATE_KEY").replace("\\n", "\n"),
-        "client_email": os.environ.get("FIREBASE_CLIENT_EMAIL"),
-    }
+if os.environ.get("FIREBASE_SERVICE_ACCOUNT"):
+    firebase_cred = json.loads(os.environ.get("FIREBASE_SERVICE_ACCOUNT"))
 else:
-    key_path = os.path.join(os.path.dirname(__file__), "key.json")
-    with open(key_path) as f:
+    with open("key.json") as f:
         firebase_cred = json.load(f)
 
 cred = credentials.Certificate(firebase_cred)
