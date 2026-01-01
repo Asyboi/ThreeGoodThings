@@ -32,9 +32,8 @@ RUN npm run build
 WORKDIR /app
 COPY backend/ ./backend/
 
-# Move frontend build into backend so Flask can serve it
-RUN mkdir -p /app/backend/build
-RUN mv /app/frontend/build/* /app/backend/build/
+# Move frontend build into backend so Flask can serve it safely
+RUN rm -rf /app/backend/build && mv /app/frontend/build /app/backend/build
 
 EXPOSE 5000
 
