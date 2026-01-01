@@ -5,7 +5,7 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   server: {
-    allowedHosts: ['https://threegoodthings.onrender.com'],
+    allowedHosts: ['threegoodthings.onrender.com'],
     host: true, // needed for docker
     watch: {
       usePolling: true, // needed for Docker on Windows/macOS
