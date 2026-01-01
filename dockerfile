@@ -33,7 +33,8 @@ WORKDIR /app
 COPY backend/ ./backend/
 
 # Move frontend build into backend so Flask can serve it
-RUN mv /app/frontend/build /app/backend/build
+RUN mkdir -p /app/backend/build
+RUN mv /app/frontend/build/* /app/backend/build/
 
 EXPOSE 5000
 
