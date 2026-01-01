@@ -6,17 +6,18 @@ WORKDIR /app
 
 # Install system dependencies including Node.js and npm
 RUN apt-get update && apt-get install -y \
-    nodejs \
-    npm \
     curl \
-    && curl -sL https://deb.nodesource.com/setup_16.x | bash - \
-    && apt-get install -y nodejs \
+    && curl -fsSL https://deb.nodesource.com/setup_16.x | bash - \
+    && apt-get install -y nodejs npm \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy backend requirements and install Python dependencies
 COPY backend/requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy backend code (needed before moving frontend build)
+COPY backend/ ./backend/
 
 # Copy frontend package.json and install Node dependencies
 COPY frontend/package*.json ./frontend/
@@ -29,13 +30,14 @@ COPY frontend/ ./
 # Build React frontend
 RUN npm run build
 
-# Copy backend code
-WORKDIR /app
-COPY backend/ ./backend/
+# Move build into backend folder so Flask can serve it
+RUN mv build ../backend/build
+
+# Set working directory back to backend for running Flask
+WORKDIR /app/backend
 
 # Expose port (Render provides $PORT at runtime)
 EXPOSE 5000
 
-# Start the Flask app using Gunicorn
-# --bind 0.0.0.0:$PORT ensures it uses the environment variable from Render
-CMD ["sh", "-c", "gunicorn --bind 0.0.0.0:$PORT backend.app:app --workers 4"]
+# Start the Flask app using Gunicorn and $PORT
+CMD ["sh", "-c", "gunicorn --bind 0.0.0.0:$PORT app:app --workers 4"]

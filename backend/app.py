@@ -241,7 +241,7 @@ def get_all_users():
 @app.route("/", defaults={"path": ""})
 @app.route("/<path:path>")
 def serve_frontend(path):
-    build_dir = os.path.join(os.path.dirname(__file__), "../frontend/build")
+    build_dir = os.path.join(os.path.dirname(__file__), "build")
     if path != "" and os.path.exists(os.path.join(build_dir, path)):
         return send_from_directory(build_dir, path)
     return send_from_directory(build_dir, "index.html")
