@@ -84,11 +84,12 @@ def create_user():
 
 
 # User login 
-@app.route('/api/users/login', methods=['GET'])
+@app.route('/api/users/login', methods=['POST'])
 def get_user():
-    # get username and password from query string
-    username = request.args.get("username")
-    password = request.args.get("password")
+    # get username and password from JSON body
+    data = request.json
+    username = data.get("username")
+    password = data.get("password")
 
     if not username or not password:
         return jsonify({"error": "Username and password are required"}), 400

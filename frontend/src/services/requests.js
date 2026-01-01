@@ -19,14 +19,16 @@ export async function createUser(username, email, password) {
   return responseData;
 }
 
-// Login a user (GET method)
+// Login a user (POST method)
 export async function loginUser(username, password) {
   try {
-    const response = await fetch(
-      `${API_BASE}/api/users/login?username=${encodeURIComponent(
-        username
-      )}&password=${encodeURIComponent(password)}`
-    );
+    const response = await fetch(`${API_BASE}/api/users/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({username, password})
+    });
 
     const responseData = await response.json();
 
