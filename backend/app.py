@@ -11,9 +11,9 @@ from typing import Optional
 from werkzeug.security import generate_password_hash, check_password_hash
 
 # initialize Firebase from env vars and local dev
-if os.environ.get("FIREBASE_SERVICE_ACCOUNT"):
+if os.environ.get("FIREBASE_SERVICE_ACCOUNT_BASE64"):
     decoded = base64.b64decode(
-        os.environ["FIREBASE_SERVICE_ACCOUNT"]
+        os.environ["FIREBASE_SERVICE_ACCOUNT_BASE64"]
     ).decode("utf-8")
 
     firebase_cred = json.loads(decoded)
