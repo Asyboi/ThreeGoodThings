@@ -1,43 +1,63 @@
-# Use an official Python runtime as the base image
+# -----------------------------
+# Base image
+# -----------------------------
 FROM python:3.11-slim
 
+# -----------------------------
 # Set working directory
+# -----------------------------
 WORKDIR /app
 
-# Install system dependencies including Node.js and npm
+# -----------------------------
+# Install system dependencies
+# -----------------------------
 RUN apt-get update && apt-get install -y \
     curl \
+    gnupg \
+    ca-certificates \
+    lsb-release \
+    build-essential \
     && curl -fsSL https://deb.nodesource.com/setup_16.x | bash - \
-    && apt-get install -y nodejs npm \
+    && apt-get install -y nodejs \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
+# -----------------------------
 # Copy backend requirements and install Python dependencies
+# -----------------------------
 COPY backend/requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy backend code (needed before moving frontend build)
-COPY backend/ ./backend/
-
-# Copy frontend package.json and install Node dependencies
+# -----------------------------
+# Copy frontend and install Node dependencies
+# -----------------------------
 COPY frontend/package*.json ./frontend/
 WORKDIR /app/frontend
 RUN npm install
 
-# Copy frontend files
+# -----------------------------
+# Copy frontend source code and build
+# -----------------------------
 COPY frontend/ ./
-
-# Build React frontend
 RUN npm run build
 
-# Move build into backend folder so Flask can serve it
-RUN mv build ../backend/build
+# -----------------------------
+# Move the frontend build into backend folder
+# -----------------------------
+RUN mv /app/frontend/build /app/backend/build
 
-# Set working directory back to backend for running Flask
-WORKDIR /app/backend
+# -----------------------------
+# Copy backend code
+# -----------------------------
+WORKDIR /app
+COPY backend/ ./backend/
 
-# Expose port (Render provides $PORT at runtime)
+# -----------------------------
+# Expose the port (Render uses $PORT)
+# -----------------------------
 EXPOSE 5000
 
-# Start the Flask app using Gunicorn and $PORT
-CMD ["sh", "-c", "gunicorn --bind 0.0.0.0:$PORT app:app --workers 4"]
+# -----------------------------
+# Start Flask app using Gunicorn
+# -----------------------------
+CMD ["sh", "-c", "gunicorn --bind 0.0.0.0:$PORT backend.app:app --workers 4"]
