@@ -1,13 +1,26 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+import os
 import firebase_admin
 from firebase_admin import credentials, firestore
 from datetime import datetime, timezone
 from zoneinfo import ZoneInfo
 from typing import Optional
 
-# relative path (private key within backend)
-cred = credentials.Certificate("key.json")
+# initialize Firebase from env vars and local dev
+if os.environ.get("FLASK_ENV") == "production":
+    firebase_cred = {
+        "type": "service_account",
+        "project_id": os.environ.get("FIREBASE_PROJECT_ID"),
+        "private_key": os.environ.get("FIREBASE_PRIVATE_KEY").replace("\\n", "\n"),
+        "client_email": os.environ.get("FIREBASE_CLIENT_EMAIL"),
+    }
+else:
+    import json
+    with open("key.json") as f:
+        firebase_cred = json.load(f)
+
+cred = credentials.Certificate(firebase_cred)
 firebase_admin.initialize_app(cred)
 
 db = firestore.client()
