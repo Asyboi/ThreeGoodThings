@@ -25,7 +25,9 @@ cred = credentials.Certificate(firebase_cred)
 firebase_admin.initialize_app(cred)
 
 db = firestore.client()
-app = Flask(__name__)
+# Serve the React frontend directly from /app/frontend/build
+build_dir = os.path.join(os.path.dirname(__file__), "../frontend/build")
+app = Flask(__name__, static_folder=os.path.join(build_dir, "static"), template_folder=build_dir)
 CORS(app)
 
 # App single global timezone for simplicity (TODO: change to per-user timezone in the future)
@@ -241,8 +243,6 @@ def get_all_users():
 @app.route("/", defaults={"path": ""})
 @app.route("/<path:path>")
 def serve_frontend(path):
-    # Serve the React frontend directly from /app/frontend/build
-    build_dir = os.path.join(os.path.dirname(__file__), "../frontend/build")
     if path != "" and os.path.exists(os.path.join(build_dir, path)):
         return send_from_directory(build_dir, path)
     return send_from_directory(build_dir, "index.html")
