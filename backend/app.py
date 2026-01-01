@@ -112,7 +112,6 @@ def create_log():
     
     logs_ref = db.collection("logs")
 
-    # today_query = logs_ref.where('date', '>=', today).where('date', '<', today + datetime.timedelta(days=1)).where("user_id", '==', user_id).get()
     existing_log = (
         logs_ref
         .where("user_id", "==", user_id)
@@ -153,8 +152,6 @@ def get_log():
         return jsonify({"error": "user_id and date query parameters required"}), 400 # 400 = bad request
 
     logs_ref = db.collection("logs")
-    # target_date = datetime.datetime.strptime(date, "%m-%d-%Y").astimezone(zoneinfo.ZoneInfo('America/Chicago'))
-    # TODO: problem didn't fix
     target_date = datetime.strptime(date, "%m-%d-%Y")
     target_date = target_date.replace(tzinfo=APP_TZ)
 
