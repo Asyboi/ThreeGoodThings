@@ -11,7 +11,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 # initialize Firebase from env vars and local dev
 if os.environ.get("FIREBASE_SERVICE_ACCOUNT"):
-    firebase_cred = json.loads(os.environ.get("FIREBASE_SERVICE_ACCOUNT"))
+    firebase_cred = json.loads(os.environ.get("FIREBASE_SERVICE_ACCOUNT").replace("\\\\n","\n"))
 else:
     with open("key.json") as f:
         firebase_cred = json.load(f)
