@@ -1,8 +1,11 @@
 # Three Good Things
 
-Three Good Things is a web application intended for users to input three good things that happended to them and their role in causing those things to happen every day. This simple practice has been shown to improve the mental health of people who do it.
+Three Good Things is a web application intended for users to input three good things that happened to them and their role in causing those things to happen every day. This simple practice has been shown to improve the mental health of people who do it. I hope this app helps the user practice gratitude in their everyday life and keep a positive mindset. :)
 
-## Installation
+## Demo
+Check out the [website](https://threegoodthings.onrender.com) for a demo.
+
+## Installation (for devs - requires user to set up their own Firebase project)
 
 Instructions to set up the project locally:
 
@@ -42,3 +45,4 @@ npm run dev
 # The frontend server should be available on port 5174
 
 ```
+
