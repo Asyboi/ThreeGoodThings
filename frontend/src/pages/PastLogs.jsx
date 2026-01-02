@@ -24,6 +24,7 @@ const LogFind = () => {
   return (
     <div className="logfind-container">
       <h1 className="logfind-title">Find a Past Log</h1>
+      <h3>NOTE: log is currently only based on Central Standard Time (CST) </h3>
 
       <div className="logfind-inputs">
         <input
