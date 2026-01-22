@@ -33,14 +33,13 @@ export async function loginUser(username, password) {
 
     const responseData = await response.json();
 
-    if (!response.ok || !responseData["user_id"]) {
-      throw new Error("Login failed");
+    if (!response.ok || !responseData?.user_id) {
+      return { error: responseData?.error || "Login failed" };
     }
 
-    localStorage.setItem("userId", responseData["user_id"]);
+    localStorage.setItem("userId", responseData.user_id);
     return responseData;
-  } catch (error) {
-    console.error("Login error:", error.message);
+  } catch {
     return { error: "Login failed" };
   }
 }

@@ -1,18 +1,22 @@
-/* Container fills the screen and centers content */
-.notfound-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  padding: 2rem;
-  box-sizing: border-box;
-  background-color: #242424;
+.notfound-card {
+  max-width: 560px;
+  margin: 0 auto;
   text-align: center;
 }
 
-/* Message text */
+.notfound-title {
+  margin: 0;
+}
+
 .notfound-text {
-  color: white;
-  font-size: clamp(1.25rem, 4vw, 1.75rem);
-  line-height: 1.5;
+  margin: 10px auto 0 auto;
+  max-width: 44ch;
+  color: rgba(255, 255, 255, 0.78);
+  font-weight: 650;
+}
+
+.notfound-actions {
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
 }

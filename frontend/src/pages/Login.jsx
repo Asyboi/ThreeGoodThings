@@ -12,52 +12,92 @@ const Login = ({ setIsLoggedIn }) => {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = async () => {
-    const result = await loginUser(username, password);
-    console.log("Submitted username", username);
-    console.log("Submitted password", password);
-    setUsername("");
-    setPassword("");
-    if (result.error) {
-      alert(`${result.error}`);
-    } else if (result && result.message === "Login successful") {
-      // sets user auth value to true
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (submitting) return;
+
+    setError("");
+    setSubmitting(true);
+    const result = await loginUser(username.trim(), password);
+    setSubmitting(false);
+
+    if (result?.error) {
+      setError(result.error);
+      return;
+    }
+
+    if (result && result.message === "Login successful") {
+      setUsername("");
+      setPassword("");
       setIsLoggedIn(true);
       navigate("/");
+    } else {
+      setError("Login failed");
     }
   };
 
   return (
-    <div className="login-page">
-      <div className="login-card">
-        <h1 className="login-title">Three Good Things</h1>
+    <div className="tg-page tg-surface">
+      <div className="tg-auth">
+        <div className="tg-card tg-card--light">
+          <div className="auth-header">
+            <h1 className="auth-title">Three Good Things</h1>
+            <p className="auth-subtitle">Log in to capture today’s positives.</p>
+          </div>
 
-        <div className="login-form">
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            placeholder="Username"
-            className="login-input"
-          />
+          <form className="tg-stack" onSubmit={handleSubmit}>
+            <div>
+              <label className="tg-label" htmlFor="login-username">
+                Username
+              </label>
+              <input
+                id="login-username"
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder="Your username"
+                className="tg-field"
+                autoComplete="username"
+              />
+            </div>
 
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Password"
-            className="login-input"
-          />
+            <div>
+              <label className="tg-label" htmlFor="login-password">
+                Password
+              </label>
+              <input
+                id="login-password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Your password"
+                className="tg-field"
+                autoComplete="current-password"
+              />
+            </div>
 
-          <button className="login-button" onClick={handleSubmit}>
-            Login
-          </button>
+            {error ? (
+              <div className="tg-alert" role="alert">
+                {error}
+              </div>
+            ) : null}
 
-          <p className="login-text">
-            Don&apos;t have an account? <Link to="/create">Create account</Link>
-          </p>
+            <button
+              className="tg-btn tg-btn--primary auth-cta"
+              type="submit"
+              disabled={submitting || !username.trim() || !password}
+            >
+              {submitting ? "Logging in…" : "Login"}
+            </button>
+
+            <p className="tg-help auth-footer">
+              Don&apos;t have an account? <Link to="/create">Create account</Link>
+            </p>
+          </form>
         </div>
       </div>
     </div>
