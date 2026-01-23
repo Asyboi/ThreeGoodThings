@@ -18,7 +18,10 @@ if os.environ.get("FIREBASE_SERVICE_ACCOUNT_BASE64"):
 
     firebase_cred = json.loads(decoded)
 else:
-    with open("backend/key.json") as f:
+    # opens the file "key.json" relative to this files location (so not dependent on working directory)
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    key_path = os.path.join(BASE_DIR, "key.json")  # finds the directory where key.json is in
+    with open(key_path) as f:
         firebase_cred = json.load(f)
 
 cred = credentials.Certificate(firebase_cred)
