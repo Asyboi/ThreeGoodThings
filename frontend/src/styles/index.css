@@ -1,33 +1,42 @@
-/* ==============================
-   Global Styles
-============================== */
 :root {
+  --tg-bg: #eef7f5;
+  --tg-nav-bg: #ddf2ee;
+  --tg-surface-1: #f8fcfb;
+  --tg-surface-2: #e6f3ef;
+  --tg-text: #152521;
+  --tg-text-muted: #586d66;
+  --tg-accent: #2ab37d;
+  --tg-accent-hover: #229966;
+  --tg-link: #1d8f64;
+  --tg-border: rgba(21, 37, 33, 0.12);
+  --tg-shadow: 0 14px 34px rgba(21, 37, 33, 0.12);
+  --tg-focus: 0 0 0 3px rgba(42, 179, 125, 0.32);
+  --tg-radius: 14px;
+  --tg-radius-sm: 12px;
+
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
+  color: var(--tg-text);
+  background-color: var(--tg-bg);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Links */
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: none;
-  transition: color 0.3s;
-}
-a:hover {
-  color: #535bf2;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-/* Body */
+html,
+body {
+  height: 100%;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -35,113 +44,210 @@ body {
   flex-direction: column;
   min-height: 100vh;
   width: 100%;
-  background-color: #242424;
-  color: rgba(255, 255, 255, 0.87);
-  box-sizing: border-box;
+  background-color: var(--tg-bg);
+  color: var(--tg-text);
 }
 
-/* Headings */
-h1 {
-  font-size: clamp(2rem, 5vw, 3.2rem);
-  line-height: 1.1;
-  text-align: center;
-  margin: 0.5em 0;
+a {
+  font-weight: 600;
+  color: var(--tg-link);
+  text-decoration: none;
+  transition: color 160ms ease;
 }
 
-p {
-  font-size: clamp(1rem, 3vw, 1.2rem);
-  text-align: center;
-  max-width: 600px; /* optional, for readability */
-  margin: 0.5em auto;
+a:hover {
+  color: color-mix(in srgb, var(--tg-link) 85%, black);
 }
 
-/* Buttons */
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.8em 1.2em;
-  font-size: 1rem;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  color: white;
-  cursor: pointer;
-  transition: border-color 0.25s, background-color 0.25s;
-  width: 100%;
-  max-width: 300px;
-}
-
-button:hover {
-  border-color: #646cff;
-}
-
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-/* Images */
 img {
   max-width: 100%;
   height: auto;
   display: block;
 }
 
-/* ==============================
-   Layout Helpers
-============================== */
-.container {
-  width: 100%;
-  padding: 1rem;
-  box-sizing: border-box;
-  margin: 0 auto;
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+button {
+  border: 1px solid transparent;
+  border-radius: var(--tg-radius-sm);
+  background: transparent;
+  color: inherit;
+}
+
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: none;
+  box-shadow: var(--tg-focus);
+}
+
+.tg-page {
+  min-height: 100vh;
+  padding: 32px 16px;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 1.5rem;
 }
 
-/* Button group layout */
-.button-group {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center;
+.tg-container {
   width: 100%;
+  max-width: 960px;
 }
 
-/* ==============================
-   Responsive Media Queries
-============================== */
+.tg-auth {
+  width: 100%;
+  max-width: 420px;
+}
+
+.tg-card {
+  background: var(--tg-surface-1);
+  border: 1px solid var(--tg-border);
+  border-radius: var(--tg-radius);
+  box-shadow: var(--tg-shadow);
+  padding: 24px;
+}
+
+.tg-card--light {
+  background: #ffffff;
+  border: 1px solid rgba(20, 20, 20, 0.08);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+  color: #1b1b1b;
+  --tg-text-muted: rgba(27, 27, 27, 0.7);
+  --tg-border: rgba(20, 20, 20, 0.12);
+  --tg-field-bg: #f6f7fb;
+  --tg-field-border: rgba(20, 20, 20, 0.14);
+  --tg-field-text: #1b1b1b;
+}
+
+.tg-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.tg-cluster {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.tg-title {
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  line-height: 1.15;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.tg-subtitle {
+  margin: 0;
+  color: var(--tg-text-muted);
+  font-size: 1rem;
+}
+
+.tg-muted {
+  color: var(--tg-text-muted);
+}
+
+.tg-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 44px;
+  padding: 0 16px;
+  border-radius: var(--tg-radius-sm);
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-weight: 650;
+  transition: transform 160ms ease, background-color 160ms ease, border-color 160ms ease,
+    box-shadow 160ms ease;
+  user-select: none;
+}
+
+.tg-btn:active {
+  transform: translateY(1px);
+}
+
+.tg-btn--primary {
+  background: var(--tg-accent);
+  color: #ffffff;
+}
+
+.tg-btn--primary:hover {
+  background: var(--tg-accent-hover);
+}
+
+.tg-btn--secondary {
+  background: var(--tg-surface-1);
+  border-color: var(--tg-border);
+}
+
+.tg-btn--secondary:hover {
+  border-color: color-mix(in srgb, var(--tg-border) 70%, black);
+}
+
+.tg-btn--destructive {
+  background: #d32f2f;
+  color: #ffffff;
+}
+
+.tg-btn--destructive:hover {
+  background: #b91c1c;
+}
+
+.tg-btn[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.tg-field {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: var(--tg-radius-sm);
+  border: 1px solid var(--tg-field-border, var(--tg-border));
+  background: var(--tg-field-bg, var(--tg-surface-2));
+  color: var(--tg-field-text, var(--tg-text));
+  outline: none;
+}
+
+.tg-field::placeholder {
+  color: color-mix(in srgb, var(--tg-text-muted) 90%, transparent);
+}
+
+.tg-label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 650;
+  margin-bottom: 6px;
+}
+
+.tg-help {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--tg-text-muted);
+}
+
+.tg-alert {
+  border-radius: var(--tg-radius-sm);
+  border: 1px solid rgba(211, 47, 47, 0.35);
+  background: rgba(211, 47, 47, 0.12);
+  padding: 10px 12px;
+  color: color-mix(in srgb, #d32f2f 88%, white);
+  font-weight: 600;
+}
+
+.tg-surface {
+  background: var(--tg-bg);
+}
+
 @media (max-width: 768px) {
-  .button-group {
-    flex-direction: column; /* stack buttons on small screens */
-  }
-
-  h1 {
-    font-size: clamp(1.8rem, 6vw, 2.8rem);
-  }
-
-  p {
-    font-size: clamp(0.9rem, 4vw, 1.1rem);
-    padding: 0 1rem;
+  .tg-page {
+    padding: 24px 16px;
   }
 }
-
-/* Optional: dark/light mode setup (commented for now) */
-/*
-@media (prefers-color-scheme: light) { 
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #1a1a1a;
-  }
-}
-*/

@@ -1,79 +1,30 @@
-/* Container for full page */
-.home-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center; /* vertical center */
-  align-items: center;     /* horizontal center */
-  min-height: 100vh;
-  padding: 2rem;
-  box-sizing: border-box;
-  color: white;
-  gap: 1.5rem; /* spacing between elements */
+.home-card {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.home-hero {
   text-align: center;
 }
 
-/* Page title */
-.home-title {
-  font-size: clamp(2rem, 5vw, 3rem); /* responsive */
-  font-weight: bold;
-  margin: 0;
-}
-
-/* Paragraph text */
 .home-text {
-  font-size: clamp(1rem, 3vw, 1.25rem);
-  max-width: 700px;
-  line-height: 1.6;
-  margin: 0;
+  margin: 10px auto 0 auto;
+  max-width: 56ch;
 }
 
-/* Buttons container */
-.home-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+.home-actions {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.home-action {
   width: 100%;
-  max-width: 300px;
 }
 
-/* Buttons */
-.home-button {
-  width: 100%;
-  padding: 0.75rem;
-  background-color: #4f63f7;
-  color: white;
-  font-weight: 600;
-  border: none;
-  border-radius: 0.75rem;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.home-button:hover {
-  background-color: #3b4cc0;
-}
-
-.logout-button {
-  background-color: #4f63f7; 
-  margin-top: 1rem;
-  width: auto;
-  padding: 0.5rem 1.5rem; /* adjust padding for horizontal shape */
-}
-
-.logout-button:hover {
-  background-color: #d32f2f;
-}
-
-
-/* Responsive adjustments */
-@media (min-width: 600px) {
-  .home-buttons {
-    flex-direction: row;
-    gap: 1rem;
-  }
-
-  .home-button {
-    width: auto;
-    flex: 1;
+@media (max-width: 640px) {
+  .home-actions {
+    grid-template-columns: 1fr;
   }
 }

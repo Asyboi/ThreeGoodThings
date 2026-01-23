@@ -1,17 +1,20 @@
-import { Link } from "react-router-dom";
-import { useState, useRef, useEffect } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
 import { AiFillSetting } from "react-icons/ai";
+import PropTypes from "prop-types";
+import { logoutUser } from "../services/requests";
 import './Navigation.css';
 
-const Navigation = () => {
+const Navigation = ({ isLoggedIn, setIsLoggedIn }) => {
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const firstMenuItemRef = useRef(null);
+  const navigate = useNavigate();
 
   // auth state check function
-  function isLoggedIn() {
-      const userId = localStorage.getItem("userId");
-      return Boolean(userId);
-  }
+  const authed = typeof isLoggedIn === "boolean"
+    ? isLoggedIn
+    : Boolean(localStorage.getItem("userId"));
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -24,34 +27,112 @@ const Navigation = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  useEffect(() => {
+    if (!open) return;
+    const onKeyDown = (e) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [open]);
+
+  useEffect(() => {
+    if (!open) return;
+    const id = window.setTimeout(() => {
+      firstMenuItemRef.current?.focus();
+    }, 0);
+    return () => window.clearTimeout(id);
+  }, [open]);
+
   const toggleDropdown = () => setOpen((prev) => !prev);
+
+  const handleLogout = () => {
+    logoutUser();
+    setIsLoggedIn?.(false);
+    setOpen(false);
+    navigate("/login");
+  };
 
   return (
     <nav className="nav-container">
-      <ul className="nav-list">
-        <li>
-          {/* The "Home" and "About" links only show when you're logged in */}
-          {isLoggedIn() && <Link to="/" className="nav-link">Home</Link>}
-        </li>
-        <li>
-          {isLoggedIn() && <Link to="/about" className="nav-link">About</Link>}
-        </li>
-        <li className="settings-wrapper" ref={dropdownRef}>
-          <button onClick={toggleDropdown} className="settings-button">
-            <AiFillSetting className="settings-icon" />
-          </button>
-          {open && (
-            <div className="dropdown-menu">
-              <ul className="dropdown-list">
-                <li className="dropdown-item">Light Mode (WIP) </li>
-                <li className="dropdown-item">Help (WIP) </li>
-              </ul>
-            </div>
+      <div className="nav-inner">
+        <div className="nav-left">
+          <div className="nav-links">
+            {authed && (
+              <NavLink
+                to="/"
+                className={({ isActive }) =>
+                  isActive ? "nav-link nav-link--active" : "nav-link"
+                }
+              >
+                Home
+              </NavLink>
+            )}
+            {authed && (
+              <NavLink
+                to="/about"
+                className={({ isActive }) =>
+                  isActive ? "nav-link nav-link--active" : "nav-link"
+                }
+              >
+                About
+              </NavLink>
+            )}
+          </div>
+        </div>
+
+        <div className="nav-right">
+          {authed && (
+            <button
+              type="button"
+              className="nav-link nav-link--logout"
+              onClick={handleLogout}
+            >
+              Log Out
+            </button>
           )}
-        </li>
-      </ul>
+          <div className="settings-wrapper" ref={dropdownRef}>
+            <button
+              type="button"
+              onClick={toggleDropdown}
+              className="settings-button"
+              aria-haspopup="menu"
+              aria-expanded={open}
+              aria-label="Open settings"
+            >
+              <AiFillSetting className="settings-icon" />
+            </button>
+            {open && (
+              <div className="dropdown-menu" role="menu">
+                <button
+                  type="button"
+                  className="dropdown-item"
+                  disabled
+                  ref={firstMenuItemRef}
+                  role="menuitem"
+                >
+                  Dark Mode (WIP)
+                </button>
+                <button
+                  type="button"
+                  className="dropdown-item"
+                  disabled
+                  role="menuitem"
+                >
+                  Help (WIP)
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
     </nav>
   );
+};
+
+Navigation.propTypes = {
+  isLoggedIn: PropTypes.bool,
+  setIsLoggedIn: PropTypes.func,
 };
 
 export default Navigation;

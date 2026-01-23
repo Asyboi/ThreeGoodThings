@@ -1,7 +1,7 @@
 // Index for all api calls
 // TODO: create env-based API base to allow local dev and frontend deployment
-const API_BASE = "https://threegoodthings.onrender.com"; // Updated so it runs on production backend server API
-// const API_BASE = "http://localhost:5001"; // Use this as API base when developing locally
+// const API_BASE = "https://threegoodthings.onrender.com"; // Updated so it runs on production backend server API
+const API_BASE = "http://localhost:5001"; // Use this as API base when developing locally
 // Create a new user account (POST method)
 export async function createUser(username, email, password) {
   const response = await fetch(`${API_BASE}/api/users/create`, {
@@ -33,14 +33,13 @@ export async function loginUser(username, password) {
 
     const responseData = await response.json();
 
-    if (!response.ok || !responseData["user_id"]) {
-      throw new Error("Login failed");
+    if (!response.ok || !responseData?.user_id) {
+      return { error: responseData?.error || "Login failed" };
     }
 
-    localStorage.setItem("userId", responseData["user_id"]);
+    localStorage.setItem("userId", responseData.user_id);
     return responseData;
-  } catch (error) {
-    console.error("Login error:", error.message);
+  } catch {
     return { error: "Login failed" };
   }
 }

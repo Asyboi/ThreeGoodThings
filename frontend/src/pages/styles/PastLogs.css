@@ -1,98 +1,75 @@
-/* Page container */
-.logfind-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 100vh;
-  padding: 2rem;
-  box-sizing: border-box;
-  gap: 2rem;
-  background-color: #242424;
-  color: white;
+.logfind-card {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.logfind-header {
   text-align: center;
 }
 
-/* Page title */
-.logfind-title {
-  font-size: clamp(1.5rem, 4vw, 2.5rem);
-  font-weight: bold;
-  margin: 0;
-}
-
-/* Input fields container */
 .logfind-inputs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.logfind-actions {
   display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
   justify-content: center;
-  width: 100%;
-  max-width: 500px;
 }
 
-/* Inputs */
-.logfind-input {
-  flex: 1 1 100px;
-  min-width: 100px;
-  max-width: 150px;
-  padding: 0.5rem 1rem;
-  border-radius: 0.75rem;
-  border: 1px solid #ccc;
-  outline: none;
-  font-size: 1rem;
-  box-sizing: border-box;
-}
-
-.logfind-input:focus {
-  border-color: #4f63f7;
-  box-shadow: 0 0 0 2px rgba(79, 99, 247, 0.3);
-}
-
-/* Button */
-.logfind-button {
-  padding: 0.75rem 2rem;
-  background-color: #4f63f7;
-  color: white;
-  font-weight: 600;
-  border: none;
-  border-radius: 0.75rem;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.logfind-button:hover {
-  background-color: #3b4cc0;
-}
-
-/* Results container */
 .logfind-result {
-  margin-top: 2rem;
-  text-align: center;
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid var(--tg-border);
 }
 
 .logfind-date {
-  font-size: clamp(1.25rem, 3vw, 2rem);
-  font-weight: bold;
-  margin-bottom: 1rem;
+  text-align: center;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  font-size: 1.2rem;
+  margin-bottom: 12px;
 }
 
-.logfind-entries div {
-  margin: 0.5rem 0;
-  font-size: 1rem;
+.logfind-entries {
+  display: grid;
+  gap: 10px;
 }
 
-/* Responsive adjustments */
-@media (max-width: 480px) {
+.logfind-entry {
+  display: grid;
+  grid-template-columns: 84px 1fr;
+  gap: 10px;
+  align-items: baseline;
+  padding: 12px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid var(--tg-border);
+}
+
+.logfind-entry-label {
+  font-weight: 800;
+  color: var(--tg-text-muted);
+}
+
+.logfind-entry-value {
+  color: var(--tg-text);
+}
+
+.logfind-empty {
+  margin-top: 18px;
+  text-align: center;
+  color: var(--tg-text-muted);
+  font-weight: 650;
+}
+
+@media (max-width: 720px) {
   .logfind-inputs {
-    flex-direction: column;
-    gap: 0.75rem;
+    grid-template-columns: 1fr;
   }
 
-  .logfind-input {
-    width: 100%;
-    max-width: 100%;
-  }
-
-  .logfind-button {
-    width: 100%;
+  .logfind-entry {
+    grid-template-columns: 1fr;
   }
 }

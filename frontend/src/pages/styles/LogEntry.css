@@ -1,94 +1,51 @@
-/* Container for the log page */
-.log-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 2rem;
-  min-height: 100vh;
-  box-sizing: border-box;
-  color: white;
-  gap: 2rem;
-  background-color: #242424;
+.log-card {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.log-header {
   text-align: center;
 }
 
-/* Page title */
-.log-title {
-  font-size: clamp(1.5rem, 4vw, 2.5rem);
-  font-weight: bold;
-  margin: 0;
-}
-
-/* Grid for textareas */
 .log-grid {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.log-item {
   display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-  justify-content: center;
-  width: 100%;
-  max-width: 1200px;
+  flex-direction: column;
+  gap: 8px;
 }
 
-/* Each textarea container */
-.log-box {
-  flex: 1 1 200px; /* grow/shrink and min width */
-  min-width: 200px;
-  max-width: 350px;
-  height: 250px;
-  background-color: #4a4a4a;
-  border-radius: 0.75rem;
-  overflow: hidden;
+.log-label {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--tg-text-muted);
 }
 
-/* Textarea styling */
 .log-textarea {
-  width: 100%;
-  height: 100%;
-  padding: 1rem;
   resize: none;
-  border: none;
-  outline: none;
-  box-sizing: border-box;
-  font-size: 1rem;
-  color: #242424;
-  background-color: #e0e0e0;
-  border-radius: 0.75rem;
+  min-height: 160px;
 }
 
-.log-textarea:focus {
-  box-shadow: 0 0 0 3px rgba(79, 99, 247, 0.4);
+.log-actions {
+  margin-top: 18px;
+  display: flex;
+  justify-content: center;
 }
 
-/* Save button */
-.log-button {
-  padding: 0.75rem 2rem;
-  background-color: #4f63f7;
-  color: white;
-  font-weight: 600;
-  border: none;
-  border-radius: 0.75rem;
-  cursor: pointer;
-  transition: background-color 0.2s;
+.log-saved {
+  margin-top: 10px;
+  text-align: center;
+  font-weight: 700;
+  color: var(--tg-text-muted);
 }
 
-.log-button:hover {
-  background-color: #3b4cc0;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .log-box {
-    max-width: 100%;
-    height: 180px;
-  }
-
-  .log-textarea {
-    font-size: 0.95rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .log-button {
-    width: 100%;
+@media (max-width: 900px) {
+  .log-grid {
+    grid-template-columns: 1fr;
   }
 }

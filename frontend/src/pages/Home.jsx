@@ -1,15 +1,7 @@
-import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
-import {logoutUser} from '../services/requests';
 import './styles/Home.css'; 
 
-const Home = ({ setIsLoggedIn }) => {
-  // sets prop types for isLoggedIn and setIsLoggedIn (for type safety)
-  Home.propTypes = {
-    isLoggedIn: PropTypes.bool.isRequired,
-    setIsLoggedIn: PropTypes.func.isRequired,
-  };
-
+const Home = () => {
   const navigate = useNavigate();
 
   const handleLogClick = () => {
@@ -20,33 +12,28 @@ const Home = ({ setIsLoggedIn }) => {
     navigate("/pastentries");
   };
 
-  const handleLogOut = () => {
-    logoutUser();
-    setIsLoggedIn(false);
-    navigate("/login");
-  };
-
   return (
-    <div className="home-container">
-      <h1 className="home-title">Welcome to Three Good Things</h1>
+    <div className="tg-page tg-surface">
+      <div className="tg-container">
+        <div className="tg-card home-card">
+          <div className="home-hero">
+            <h1 className="tg-title">Welcome to Three Good Things</h1>
+            <p className="tg-subtitle home-text">
+              A way to reflect on the positive moments in your life. Write three good things every day.
+            </p>
+          </div>
 
-      <p className="home-text">
-        A way to reflect on the positive moments in your life. Write three good
-        things every day.
-      </p>
+          <div className="home-actions">
+            <button className="tg-btn tg-btn--primary home-action" onClick={handleLogClick}>
+              Log Three Good Things
+            </button>
 
-      <div className="home-buttons">
-        <button className="home-button" onClick={handleLogClick}>
-          Log Three Good Things
-        </button>
-
-        <button className="home-button" onClick={handlePastEntries}>
-          Look at Past Entries
-        </button>
+            <button className="tg-btn tg-btn--primary home-action" onClick={handlePastEntries}>
+              Look at Past Entries
+            </button>
+          </div>
+        </div>
       </div>
-        <button className="logout-button" onClick={handleLogOut}>
-          Log Out
-        </button>
     </div>
   );
 };

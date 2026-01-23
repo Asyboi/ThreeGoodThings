@@ -18,12 +18,12 @@ function App() {
   );
   return (
     <BrowserRouter>
-      <Navigation />
+      <Navigation isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
       <Routes>
         {/* ProtectedRoute redirects the user to /login page if not already logged in */}
         <Route path="/" element={
             <ProtectedRoute isLoggedIn={isLoggedIn}>
-              <Home setIsLoggedIn={setIsLoggedIn} />
+              <Home />
             </ProtectedRoute>
           } 
         />
