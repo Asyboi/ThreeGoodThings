@@ -11,7 +11,7 @@
 .notfound-text {
   margin: 10px auto 0 auto;
   max-width: 44ch;
-  color: rgba(255, 255, 255, 0.78);
+  color: var(--tg-text-muted);
   font-weight: 650;
 }
 

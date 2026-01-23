@@ -18,9 +18,9 @@
   max-width: 75ch;
   line-height: 1.65;
   font-size: 1.05rem;
-  color: rgba(255, 255, 255, 0.86);
+  color: var(--tg-text);
 }
 
 .about-text strong {
-  color: rgba(255, 255, 255, 0.92);
+  color: color-mix(in srgb, var(--tg-text) 92%, black);
 }

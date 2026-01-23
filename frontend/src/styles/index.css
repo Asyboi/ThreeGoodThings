@@ -1,15 +1,16 @@
 :root {
-  --tg-bg: #242424;
-  --tg-surface-1: #1a1a1a;
-  --tg-surface-2: #2a2a2a;
-  --tg-text: rgba(255, 255, 255, 0.87);
-  --tg-text-muted: rgba(255, 255, 255, 0.68);
-  --tg-accent: #4f63f7;
-  --tg-accent-hover: #3b4cc0;
-  --tg-link: #646cff;
-  --tg-border: rgba(255, 255, 255, 0.1);
-  --tg-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
-  --tg-focus: 0 0 0 3px rgba(79, 99, 247, 0.45);
+  --tg-bg: #eef7f5;
+  --tg-nav-bg: #ddf2ee;
+  --tg-surface-1: #f8fcfb;
+  --tg-surface-2: #e6f3ef;
+  --tg-text: #152521;
+  --tg-text-muted: #586d66;
+  --tg-accent: #2ab37d;
+  --tg-accent-hover: #229966;
+  --tg-link: #1d8f64;
+  --tg-border: rgba(21, 37, 33, 0.12);
+  --tg-shadow: 0 14px 34px rgba(21, 37, 33, 0.12);
+  --tg-focus: 0 0 0 3px rgba(42, 179, 125, 0.32);
   --tg-radius: 14px;
   --tg-radius-sm: 12px;
 
@@ -55,7 +56,7 @@ a {
 }
 
 a:hover {
-  color: color-mix(in srgb, var(--tg-link) 80%, white);
+  color: color-mix(in srgb, var(--tg-link) 85%, black);
 }
 
 img {
@@ -187,7 +188,7 @@ textarea:focus-visible {
 }
 
 .tg-btn--secondary:hover {
-  border-color: color-mix(in srgb, var(--tg-border) 60%, white);
+  border-color: color-mix(in srgb, var(--tg-border) 70%, black);
 }
 
 .tg-btn--destructive {
