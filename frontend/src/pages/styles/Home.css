@@ -15,18 +15,12 @@
 .home-actions {
   margin-top: 18px;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 12px;
 }
 
 .home-action {
   width: 100%;
-}
-
-.home-footer {
-  margin-top: 18px;
-  display: flex;
-  justify-content: center;
 }
 
 @media (max-width: 640px) {

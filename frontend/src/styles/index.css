@@ -242,9 +242,7 @@ textarea:focus-visible {
 }
 
 .tg-surface {
-  background: radial-gradient(600px 300px at 10% 0%, rgba(79, 99, 247, 0.18), transparent 60%),
-    radial-gradient(700px 350px at 90% 0%, rgba(100, 108, 255, 0.12), transparent 55%),
-    var(--tg-bg);
+  background: var(--tg-bg);
 }
 
 @media (max-width: 768px) {

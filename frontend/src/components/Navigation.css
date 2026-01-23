@@ -4,8 +4,7 @@
   position: sticky;
   top: 0;
   z-index: 20;
-  background: rgba(36, 36, 36, 0.75);
-  backdrop-filter: blur(10px);
+  background: #242424;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
@@ -21,20 +20,11 @@
   box-sizing: border-box;
 }
 
-.nav-brand {
-  border: none;
-  background: transparent;
-  padding: 6px 10px;
-  border-radius: 999px;
-  color: rgba(255, 255, 255, 0.92);
-  font-weight: 750;
-  letter-spacing: -0.02em;
-  cursor: pointer;
-  transition: background-color 160ms ease;
-}
-
-.nav-brand:hover {
-  background: rgba(255, 255, 255, 0.08);
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
 }
 
 .nav-right {
@@ -64,6 +54,11 @@
 .nav-link:hover {
   background: rgba(255, 255, 255, 0.08);
   color: rgba(255, 255, 255, 0.92);
+}
+
+.nav-link--logout:hover {
+  background: #d32f2f;
+  color: #ffffff;
 }
 
 .nav-link--active {

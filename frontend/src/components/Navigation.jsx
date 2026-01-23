@@ -1,16 +1,20 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { AiFillSetting } from "react-icons/ai";
+import PropTypes from "prop-types";
+import { logoutUser } from "../services/requests";
 import './Navigation.css';
 
-const Navigation = () => {
+const Navigation = ({ isLoggedIn, setIsLoggedIn }) => {
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef(null);
   const firstMenuItemRef = useRef(null);
   const navigate = useNavigate();
 
   // auth state check function
-  const authed = Boolean(localStorage.getItem("userId"));
+  const authed = typeof isLoggedIn === "boolean"
+    ? isLoggedIn
+    : Boolean(localStorage.getItem("userId"));
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -42,18 +46,17 @@ const Navigation = () => {
 
   const toggleDropdown = () => setOpen((prev) => !prev);
 
+  const handleLogout = () => {
+    logoutUser();
+    setIsLoggedIn?.(false);
+    setOpen(false);
+    navigate("/login");
+  };
+
   return (
     <nav className="nav-container">
       <div className="nav-inner">
-        <button
-          type="button"
-          className="nav-brand"
-          onClick={() => navigate(authed ? "/" : "/login")}
-        >
-          Three Good Things
-        </button>
-
-        <div className="nav-right">
+        <div className="nav-left">
           <div className="nav-links">
             {authed && (
               <NavLink
@@ -76,7 +79,18 @@ const Navigation = () => {
               </NavLink>
             )}
           </div>
+        </div>
 
+        <div className="nav-right">
+          {authed && (
+            <button
+              type="button"
+              className="nav-link nav-link--logout"
+              onClick={handleLogout}
+            >
+              Log Out
+            </button>
+          )}
           <div className="settings-wrapper" ref={dropdownRef}>
             <button
               type="button"
@@ -114,6 +128,11 @@ const Navigation = () => {
       </div>
     </nav>
   );
+};
+
+Navigation.propTypes = {
+  isLoggedIn: PropTypes.bool,
+  setIsLoggedIn: PropTypes.func,
 };
 
 export default Navigation;

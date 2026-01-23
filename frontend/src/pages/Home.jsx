@@ -1,15 +1,7 @@
-import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
-import {logoutUser} from '../services/requests';
 import './styles/Home.css'; 
 
-const Home = ({ setIsLoggedIn }) => {
-  // sets prop types for isLoggedIn and setIsLoggedIn (for type safety)
-  Home.propTypes = {
-    isLoggedIn: PropTypes.bool.isRequired,
-    setIsLoggedIn: PropTypes.func.isRequired,
-  };
-
+const Home = () => {
   const navigate = useNavigate();
 
   const handleLogClick = () => {
@@ -18,12 +10,6 @@ const Home = ({ setIsLoggedIn }) => {
 
   const handlePastEntries = () => {
     navigate("/pastentries");
-  };
-
-  const handleLogOut = () => {
-    logoutUser();
-    setIsLoggedIn(false);
-    navigate("/login");
   };
 
   return (
@@ -42,14 +28,8 @@ const Home = ({ setIsLoggedIn }) => {
               Log Three Good Things
             </button>
 
-            <button className="tg-btn tg-btn--secondary home-action" onClick={handlePastEntries}>
+            <button className="tg-btn tg-btn--primary home-action" onClick={handlePastEntries}>
               Look at Past Entries
-            </button>
-          </div>
-
-          <div className="home-footer">
-            <button className="tg-btn tg-btn--destructive" onClick={handleLogOut}>
-              Log Out
             </button>
           </div>
         </div>
