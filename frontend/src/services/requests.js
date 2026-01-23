@@ -1,7 +1,7 @@
 // Index for all api calls
 // TODO: create env-based API base to allow local dev and frontend deployment
-// const API_BASE = "https://threegoodthings.onrender.com"; // Updated so it runs on production backend server API
-const API_BASE = "http://localhost:5001"; // Use this as API base when developing locally
+const API_BASE = "https://threegoodthings.onrender.com"; // Updated so it runs on production backend server API
+// const API_BASE = "http://localhost:5001"; // Use this as API base when developing locally
 // Create a new user account (POST method)
 export async function createUser(username, email, password) {
   const response = await fetch(`${API_BASE}/api/users/create`, {
