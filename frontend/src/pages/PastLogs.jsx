@@ -109,15 +109,15 @@ const LogFind = () => {
               <div className="logfind-date">Log for {targetDate}</div>
               <div className="logfind-entries">
                 <div className="logfind-entry">
-                  <span className="logfind-entry-label">Thing 1</span>
+                  <span className="logfind-entry-label">Log 1</span>
                   <span className="logfind-entry-value">{pastLog.thing_1}</span>
                 </div>
                 <div className="logfind-entry">
-                  <span className="logfind-entry-label">Thing 2</span>
+                  <span className="logfind-entry-label">Log 2</span>
                   <span className="logfind-entry-value">{pastLog.thing_2}</span>
                 </div>
                 <div className="logfind-entry">
-                  <span className="logfind-entry-label">Thing 3</span>
+                  <span className="logfind-entry-label">Log 3</span>
                   <span className="logfind-entry-value">{pastLog.thing_3}</span>
                 </div>
               </div>

@@ -46,13 +46,13 @@ const LogEntry = () => {
       <div className="tg-container">
         <div className="tg-card log-card">
           <div className="log-header">
-            <h1 className="tg-title">Write three good things about today</h1>
+            <h1 className="tg-title">Write three good things about today 🪴</h1>
             <p className="tg-subtitle">Small wins count. Keep it simple and specific.</p>
           </div>
 
           <div className="log-grid">
             <div className="log-item">
-              <div className="log-label">Thing 1</div>
+              <div className="log-label">Log 1</div>
               <textarea
                 value={logEntry1}
                 onChange={(e) => setLogEntry1(e.target.value)}
@@ -62,7 +62,7 @@ const LogEntry = () => {
               />
             </div>
             <div className="log-item">
-              <div className="log-label">Thing 2</div>
+              <div className="log-label">Log 2</div>
               <textarea
                 value={logEntry2}
                 onChange={(e) => setLogEntry2(e.target.value)}
@@ -72,7 +72,7 @@ const LogEntry = () => {
               />
             </div>
             <div className="log-item">
-              <div className="log-label">Thing 3</div>
+              <div className="log-label">Log 3</div>
               <textarea
                 value={logEntry3}
                 onChange={(e) => setLogEntry3(e.target.value)}
