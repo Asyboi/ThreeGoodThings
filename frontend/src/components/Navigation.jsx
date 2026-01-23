@@ -111,7 +111,7 @@ const Navigation = ({ isLoggedIn, setIsLoggedIn }) => {
                   ref={firstMenuItemRef}
                   role="menuitem"
                 >
-                  Light Mode (WIP)
+                  Dark Mode (WIP)
                 </button>
                 <button
                   type="button"
